@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <map>
 
 #include "row.hpp"
 
@@ -14,12 +15,15 @@ class Character
 		Character(csv::Row row);
 		~Character();
 
-		void update_status(std::vector<int> user_ans);
+		void update_status(int current_ans, int expected_ans);
+		void update_diff(std::vector<int> user_ans);
+
+		bool get_status();
 
 		int operator[](int pos);
 
 	private:
-		bool _next_in_line;
+		bool _status;
 		int _grade;
 		std::string _name;
 		std::vector<int> _ans;

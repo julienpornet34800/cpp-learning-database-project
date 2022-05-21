@@ -11,7 +11,7 @@ bin/row.o: source/row.cpp
 	$(CC) -o $@ -c $< $(CFLAGS)
 bin/csv_parser.o: source/csv_parser.cpp include/row.hpp
 	$(CC) -o $@ -c $< $(CFLAGS)
-bin/character.o: source/character.cpp include/csv_parser.hpp include/row.hpp
+bin/character.o: source/character.cpp include/question.hpp include/csv_parser.hpp include/row.hpp
 	$(CC) -o $@ -c $< $(CFLAGS)
 bin/question.o: source/question.cpp include/character.hpp include/csv_parser.hpp include/row.hpp
 	$(CC) -o $@ -c $< $(CFLAGS)

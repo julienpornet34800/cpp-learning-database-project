@@ -27,12 +27,14 @@ std::ostream& operator<<(std::ostream& os, std::vector<T> v)
 	return os;
 }
 
-
-void erase_question(std::vector<Question> questions_vector)
+template<typename T, size_t N>
+std::ostream& operator<<(std::ostream& os, std::array<T, N> a)
 {
-	for(size_t i = 0; i < questions_vector.size(); i++)
-		if (questions_vector[i]._already_asked == true)
-			questions_vector.erase(questions_vector.begin() + i);
+	std::for_each(std::begin(a), std::end(a), [&os](T elem)
+	{
+		os << elem << "\t";
+	});
+	return os;
 }
 
 int main()
@@ -55,15 +57,17 @@ int main()
 		questions_vector.push_back(Question(i, questions_parser[i], characters_vector));
 
 	/*Answers aquisitions*/
-	for(size_t i = 0; i<questions_parser.get_nrow(); i++)
+	for(size_t i = 0; i<5; i++)
 	{
 		/*Update question relevance*/
-		for(size_t i = 0; i<questions_parser.get_nrow(); i++)
+		for(size_t j = 0; j<questions_parser.get_nrow(); j++)
 		{ 
-				questions_vector[i].update_relevance(characters_vector);
-				std::cout << questions_vector[i].get_relevance() << " ";
+				//std::cout << questions_vector[i];
+				questions_vector[j].update_relevance(characters_vector);
+				//std::cout << "_rep_ans = " << questions_vector[i].get_rep_ans() << std::endl;
+				//std::cout << "relevance = " << questions_vector[i].get_relevance() << std::endl;
 		}
-		std::cout << std::endl;
+		//std::cout << std::endl;
 
 		/*Sort the relevance from the answer*/
 		std::sort(questions_vector.begin()+i, questions_vector.end(), 
@@ -73,11 +77,17 @@ int main()
 				else return false;
 			});
 
+		std::cout << questions_vector << std::endl << std::endl;
+
 		/*Display the question*/
-		std::cout << questions_vector << std::endl;
 		std::cout << questions_vector[i] << "\t(réponse entre 0 et 5)" << std::endl;
 		std::cin >> current_ans;
 		user_ans.push_back(current_ans);
+		
+		for(size_t j = 0; j<characters_vector.size(); j++)
+		{ 
+			characters_vector[j].update_status(current_ans, questions_vector[i][j]);
+		}
 
 	}
 		/*Update relevance*/
