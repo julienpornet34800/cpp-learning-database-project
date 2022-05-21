@@ -46,5 +46,3 @@ void Character::update_status(std::vector<int> user_ans)
 	
 	_grade = std::accumulate(diff_ans.begin(), diff_ans.end(), 0);
 }
-
-

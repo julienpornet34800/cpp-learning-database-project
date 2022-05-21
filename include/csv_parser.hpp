@@ -29,7 +29,6 @@ namespace csv
 	    	int _ncolumn;
 	    	std::vector<std::string> _header;
 	    	std::vector<Row> _content;
-
     };
 }
 
