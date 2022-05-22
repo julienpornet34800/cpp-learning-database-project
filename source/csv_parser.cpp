@@ -41,7 +41,7 @@ namespace csv
 		return os;
 	}
 
-	Parser::Parser(const std::string& path, char sep):_sep(sep)
+	Parser::Parser(const std::string& path, char sep):_path(path), _sep(sep)
 	{
 		//file opening
 	    std::fstream fs;
@@ -89,4 +89,67 @@ namespace csv
 		return _content[pos];
 	}
 
+	bool Parser::delete_row(unsigned int pos)
+	{
+		if (pos > _header.size())
+		{
+			std::perror("Unexisting row.");
+			return false;
+		}
+		_content.erase(_content.begin()+pos);
+		return true;
+	}
+
+	bool Parser::add_row(std::string str)
+	{
+		Row row(_header, static_cast<std::stringstream>(str), _sep);
+		if (static_cast<long unsigned int>(row.length()) != _header.size())
+		{
+			std::perror("Format error");
+			return false;
+		}
+		else
+		{
+			_content.push_back(row);
+			return true;
+		}
+	}
+
+	bool Parser::add_column(std::string header_name)
+	{
+		_header.push_back(header_name);
+
+		for(size_t i = 0; i < _content.size(); i++) _content[i].add_column(header_name);
+
+		return true;
+	}
+
+	void Parser::sync(void) const
+	{
+		unsigned int i = 0;
+
+		std::fstream fs;
+	    fs.open(_path, std::ios::out); //read mode
+	    //make sure that the file exists
+	    if (!fs.good())
+	    {
+	        std::perror("File did not open correctly.");
+	        throw;
+	    }
+	    //write Row by Row inside the file	
+		for (auto it = _header.begin(); it != _header.end(); it++)
+		{
+			fs << *it;
+			if (i < _header.size() - 1)
+				fs << _sep;
+			else
+				fs << std::endl;
+			i++;
+		}
+     
+		for (auto it = _content.begin(); it != _content.end(); it++)
+			fs << *it << std::endl;
+
+      	fs.close();
+	}
 }

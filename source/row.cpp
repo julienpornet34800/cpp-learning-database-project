@@ -12,22 +12,16 @@
 
 namespace csv
 {
-	/*Friend operator*/
-	template<typename T>
-	std::ostream& operator<<(std::ostream& os, std::vector<T> v)
-	{
-		std::for_each(v.begin(), v.end(),
-			[&os](T elem)
-			{
-				os << "{" << elem << "}" << "\t";
-			});
-
-		return os;
-	}
-		
+	/*Friend operator*/	
 	std::ostream& operator<<(std::ostream& os, csv::Row row)
 	{
-		os << row._content;
+
+		for(size_t i = 0; i < row._content.size(); i++)
+		{
+			if (i != row._content.size()-1) os << row[i] << row._sep;
+			else os << " " << row[i];
+		}
+		//os << row[static_cast<int>(row._content.size())];
 		return os;
 	}
 
@@ -45,7 +39,7 @@ namespace csv
 	}
 
 	/*Constructor and destructor*/
-	Row::Row(std::vector<std::string> header, std::stringstream ssline, char sep) : _header(header)
+	Row::Row(std::vector<std::string> header, std::stringstream ssline, char sep) : _sep(sep), _header(header)
 	{
     	std::string item;
     	size_t count = 0;
@@ -89,6 +83,13 @@ namespace csv
 	int Row::length()
 	{
 		return _header.size();
+	}
+
+	bool Row::add_column(std::string header_name)
+	{
+		_header.push_back(header_name);
+		_content.push_back("0"); 
+		return true;
 	}
 
 }

@@ -29,8 +29,10 @@ namespace csv
 			std::string operator[](std::string header_name);
 
 			int length();
+			bool add_column(std::string header_name);
 
 		private:
+			char _sep;
 			std::vector<std::string> _content;
 			std::vector<std::string> _header;
 	};

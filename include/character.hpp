@@ -19,6 +19,7 @@ class Character
 		void update_diff(std::vector<int> user_ans);
 
 		bool get_status();
+		int get_grade();
 
 		int operator[](int pos);
 

@@ -52,12 +52,18 @@ void Character::update_status(int current_ans, int expected_ans)
 	}
 	else 
 	{
+		if(_status == true) std::cout << _name << " is eliminated !" << std::endl;
+		
 		_status = false;
-		std::cout << _name << "is eliminated !" << std::endl;
 	}
 }
 
 bool Character::get_status()
 {
 	return _status;	
+} 
+
+int Character::get_grade()
+{
+	return _grade;	
 } 

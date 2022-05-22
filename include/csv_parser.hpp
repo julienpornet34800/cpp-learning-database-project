@@ -23,7 +23,13 @@ namespace csv
 
 	        Row operator[](int pos);
 
+	        bool delete_row(unsigned int row);
+        	bool add_row(std::string str);
+        	bool add_column(std::string header_name);
+        	void sync(void) const;
+
 	    private:
+	    	std::string _path;
 	    	char _sep;
 	    	std::vector<std::string> _file;
 	    	int _ncolumn;
