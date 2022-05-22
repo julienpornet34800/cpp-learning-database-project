@@ -18,6 +18,9 @@ namespace csv
 	class Row
 	{
 		friend std::ostream& operator<<(std::ostream& os, Row row);
+		//friend std::istream& operator>>(std::istream& is, Row row);
+		//friend std::istream& operator>>(std::istream& is, std::vector<T> v);
+
 		friend std::vector<int> get_answer(Row row); 
 		friend class Character;
 
@@ -25,8 +28,8 @@ namespace csv
 			Row(std::vector<std::string> header, std::stringstream ssline, char sep);
 			~Row();
 
-			std::string operator[](int pos);
-			std::string operator[](std::string header_name);
+			std::string& operator[](int pos);
+			std::string& operator[](std::string header_name);
 
 			int length();
 			bool add_column(std::string header_name);

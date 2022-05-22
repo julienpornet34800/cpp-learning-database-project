@@ -24,6 +24,30 @@ namespace csv
 		//os << row[static_cast<int>(row._content.size())];
 		return os;
 	}
+	/*
+	template<typename T>
+	std::istream& operator>>(std::istream& is, std::vector<T> v)
+	{
+		int count = 0;
+
+		while (std::getline(is, item, _sep))
+      	{	 
+      		count++;
+      		if (count > _header.size()) throw;
+      	}
+      	while (std::getline(is, item, _sep))
+      	{	 
+      		v.push_back(item);
+      	}
+
+		return is;
+	}*/
+	/*
+	std::istream& operator>>(std::istream& is, Row row)
+	{
+		is >> row._content;
+		return is;
+	}*/
 
 	/*Friend function*/
 	std::vector<int> get_answer(Row row)
@@ -56,12 +80,12 @@ namespace csv
 	Row::~Row()
 	{}
 
-	std::string Row::operator[](int pos)
+	std::string& Row::operator[](int pos)
 	{
 		return _content[pos];
 	}
 
-	std::string Row::operator[](std::string header_name)
+	std::string& Row::operator[](std::string header_name)
 	{
 		size_t pos = 0;
 		bool key = false;

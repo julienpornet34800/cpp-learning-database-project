@@ -26,6 +26,7 @@ namespace csv
 	        bool delete_row(unsigned int row);
         	bool add_row(std::string str);
         	bool add_column(std::string header_name);
+        	bool modif_value(std::string new_value, int row, int pos);
         	void sync(void) const;
 
 	    private:

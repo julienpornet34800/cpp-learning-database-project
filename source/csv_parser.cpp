@@ -124,6 +124,12 @@ namespace csv
 		return true;
 	}
 
+	bool Parser::modif_value(std::string new_value, int row, int pos)
+	{
+		_content[row][pos] = new_value;
+		return true;
+	}
+
 	void Parser::sync(void) const
 	{
 		unsigned int i = 0;
