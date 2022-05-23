@@ -1,8 +1,12 @@
+/*Standart include*/
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <unordered_map>
-
+#include <iterator>
+#include <numeric>
+#include <algorithm>
+#include <sstream>
+/*Personnal include*/
 #include "row.hpp"
 
 #ifndef CSV_PARSER_HPP

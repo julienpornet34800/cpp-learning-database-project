@@ -1,13 +1,3 @@
-#include <iostream>
-#include <cmath> // for std::sqrt
-
-#include <fstream>
-#include <vector>
-#include <iterator>
-#include <numeric>
-#include <algorithm>
-#include <sstream>
-#include <unordered_map>
 #include "../include/row.hpp"
 
 namespace csv
@@ -24,30 +14,6 @@ namespace csv
 		//os << row[static_cast<int>(row._content.size())];
 		return os;
 	}
-	/*
-	template<typename T>
-	std::istream& operator>>(std::istream& is, std::vector<T> v)
-	{
-		int count = 0;
-
-		while (std::getline(is, item, _sep))
-      	{	 
-      		count++;
-      		if (count > _header.size()) throw;
-      	}
-      	while (std::getline(is, item, _sep))
-      	{	 
-      		v.push_back(item);
-      	}
-
-		return is;
-	}*/
-	/*
-	std::istream& operator>>(std::istream& is, Row row)
-	{
-		is >> row._content;
-		return is;
-	}*/
 
 	/*Friend function*/
 	std::vector<int> get_answer(Row row)
@@ -63,7 +29,7 @@ namespace csv
 	}
 
 	/*Constructor and destructor*/
-	Row::Row(std::vector<std::string> header, std::stringstream ssline, char sep) : _sep(sep), _header(header)
+	Row::Row(std::vector<std::string> header, std::stringstream ssline, char sep) : _header(header), _sep(sep)
 	{
     	std::string item;
     	size_t count = 0;
@@ -76,10 +42,11 @@ namespace csv
       		if (count > _header.size()) throw;
       	}
 	}
-
+	
 	Row::~Row()
 	{}
 
+	/*Member operator*/
 	std::string& Row::operator[](int pos)
 	{
 		return _content[pos];
@@ -104,6 +71,7 @@ namespace csv
 		return _content[static_cast<int>(pos)];
 	}
 
+	/*Member function*/
 	int Row::length()
 	{
 		return _header.size();
@@ -115,7 +83,6 @@ namespace csv
 		_content.push_back("0"); 
 		return true;
 	}
-
 }
 
 

@@ -1,14 +1,4 @@
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include <iterator>
-#include <numeric>
-#include <algorithm>
-#include <sstream>
-#include <unordered_map>
-
 #include "../include/csv_parser.hpp"
-#include "../include/row.hpp"
 
 template<typename T>
 std::ostream& operator<<(std::ostream& os, std::vector<T> v)
@@ -23,6 +13,7 @@ std::ostream& operator<<(std::ostream& os, std::vector<T> v)
 
 namespace csv
 {	
+	/*Friend operator*/
 	template<typename T>
 	std::ostream& operator<<(std::ostream& os, std::vector<T> v)
 	{
@@ -41,6 +32,7 @@ namespace csv
 		return os;
 	}
 
+	/*Constructor & Destructor*/
 	Parser::Parser(const std::string& path, char sep):_path(path), _sep(sep)
 	{
 		//file opening
@@ -74,6 +66,13 @@ namespace csv
 		std::cout << "Parser end of use." << std::endl;
 	}
 
+	/*Member operator*/
+	Row Parser::operator[](int pos)
+	{
+		return _content[pos];
+	}
+
+	/*Member function*/
 	size_t Parser::get_nrow() const
 	{
 		return _content.size();
@@ -82,11 +81,6 @@ namespace csv
 	size_t Parser::get_ncolumn() const
 	{
 		return _header.size();
-	}
-
-	Row Parser::operator[](int pos)
-	{
-		return _content[pos];
 	}
 
 	bool Parser::delete_row(unsigned int pos)

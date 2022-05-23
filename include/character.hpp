@@ -1,18 +1,20 @@
+/*Standart include*/
 #include <iostream>
 #include <vector>
-#include <map>
 
+/*Personnal include*/
 #include "row.hpp"
+#include "csv_parser.hpp"
 
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
-class Character 
+class Character : public csv::Row
 {
 	friend std::ostream& operator<<(std::ostream& os, Character ch);
 
 	public:
-		Character(csv::Row row);
+		Character(Row row);
 		~Character();
 
 		void update_status(int current_ans, int expected_ans);
@@ -20,8 +22,7 @@ class Character
 
 		bool get_status();
 		int get_grade();
-
-		int operator[](int pos);
+		int get_ans(int pos);
 
 	private:
 		bool _status;

@@ -5,6 +5,16 @@
 #include "../include/row.hpp"
 #include "../include/character.hpp"
 
+template<typename T>
+std::ostream& operator<<(std::ostream& os, std::vector<T> v)
+{
+	std::for_each(v.begin(), v.end(), [&os](T elem)
+	{
+		os << elem << "\t";
+	});
+	return os;
+}
+
 /*Friend function*/
 std::ostream& operator<<(std::ostream& os, Character ch)
 {
@@ -13,24 +23,21 @@ std::ostream& operator<<(std::ostream& os, Character ch)
 }
 
 /*Operator*/
-int Character::operator[](int pos)
-{
-	return _ans[pos];
-}
 
 /*Constructor & destructor*/
-Character::Character(csv::Row row) : _status(true), _grade(0), _name(row["Name"])
+Character::Character(Row row) : Row(row), _status(true), _grade(0), _name(_content[0])
 {
-	for(int i = 1; i < row.length(); i++)
+	for(int i = 1; i < length(); i++)
 	{	 
-		_ans.push_back(stoi(row[i]));
+		_ans.push_back(stoi(_content[i]));
 	}
+	std::cout << _ans << std::endl;
 }
-
+ 
 Character::~Character()
 {}
 
-/*Method*/
+/*Member function*/
 void Character::update_diff(std::vector<int> user_ans)
 {
 	std::vector<int> diff_ans;
@@ -67,3 +74,8 @@ int Character::get_grade()
 {
 	return _grade;	
 } 
+
+int Character::get_ans(int pos)
+{
+	return _ans[pos];
+}

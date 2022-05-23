@@ -49,23 +49,23 @@ int main()
 
 	/*Question init*/
 	std::vector<Question> questions_vector;
-	for(size_t i = 0; i<questions_parser.get_nrow(); i++) 
+	for(size_t i = 0; i<questions_parser.get_nrow()-1; i++) 
 		questions_vector.push_back(Question(i, questions_parser[i], characters_vector));
 
 	/*Answers aquisitions*/
 	for(size_t i = 0; i<5; i++)
 	{
 		/*Update question relevance*/
-		for(size_t j = 0; j<questions_parser.get_nrow(); j++)
+		for(int j = 0; j < static_cast<int>(questions_parser.get_nrow())-2; j++) //try to resolve
 		{ 
-				//std::cout << questions_vector[i];
-				questions_vector[j].update_relevance(characters_vector);
-				//std::cout << "_rep_ans = " << questions_vector[i].get_rep_ans() << std::endl;
-				//std::cout << "relevance = " << questions_vector[i].get_relevance() << std::endl;
+			questions_vector[j].update_relevance(characters_vector);
+			//std::cout << "_rep_ans = " << questions_vector[i].get_rep_ans() << std::endl;
+			//std::cout << "relevance = " << questions_vector[i].get_relevance() << std::endl;
 		}
-		//std::cout << std::endl;
+		std::cout << std::endl;
 
 		/*Sort the relevance from the answer*/
+
 		std::sort(questions_vector.begin()+i, questions_vector.end(), 
 			[](Question q1, Question q2)
 			{
@@ -74,19 +74,17 @@ int main()
 			});
 
 		std::cout << questions_vector << std::endl << std::endl;
-
+	
 		/*Display the question*/
 		std::cout << questions_vector[i] << "\t(réponse entre 0 et 5)" << std::endl;
 		std::cin >> current_ans;
 		user_ans.push_back(current_ans);
-		
+	
 		for(size_t j = 0; j<characters_vector.size(); j++)
 		{ 
 			characters_vector[j].update_status(current_ans, questions_vector[i][j]);
 		}
-
 	}
-
 	/*Answers analysis*/
 	for(size_t j = 0; j<characters_vector.size(); j++)
 	{ 
@@ -101,8 +99,6 @@ int main()
 
 	std::cout << characters_vector << std::endl; 
 	
-
-
 	return 0;
 }
 
