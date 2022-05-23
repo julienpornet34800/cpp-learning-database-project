@@ -6,7 +6,7 @@
 #include "../include/question.hpp"
 
 /*Constructor & Destructor*/
-Question::Question(int id, csv::Row row, std::vector<Character> character_vector) : _id(id), _statement(row[0]), _relevance(1), _already_asked(false)
+Question::Question(int id, csv::Row row, std::vector<Character> character_vector) :Row(row), _id(id), _statement(row[0]), _relevance(1), _already_asked(false)
 {
 	for(size_t i = 0; i < character_vector.size(); i++)
 		_ans.push_back(character_vector[i].get_ans(_id));
@@ -19,11 +19,6 @@ Question::~Question()
 {}
 
 /*Member operator*/
-int Question::operator[](int pos)
-{
-	return _ans[pos];
-}
-
 std::ostream& operator<<(std::ostream& os, Question q)
 {
 	q._already_asked = true;
@@ -64,6 +59,11 @@ void Question::update_relevance(std::vector<Character> character_vector)
 	{
 		_relevance *= (_rep_ans[i] + 1); 
 	}	
+}
+
+int Question::get_ans(int pos)
+{
+	return _ans[pos];
 }
 
 int Question::get_relevance()

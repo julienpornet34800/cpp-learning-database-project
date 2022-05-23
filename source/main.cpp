@@ -82,7 +82,7 @@ int main()
 	
 		for(size_t j = 0; j<characters_vector.size(); j++)
 		{ 
-			characters_vector[j].update_status(current_ans, questions_vector[i][j]);
+			characters_vector[j].update_status(current_ans, questions_vector[i].get_ans(j));
 		}
 	}
 	/*Answers analysis*/

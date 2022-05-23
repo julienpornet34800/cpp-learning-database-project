@@ -31,7 +31,7 @@ Character::Character(Row row) : Row(row), _status(true), _grade(0), _name(_conte
 	{	 
 		_ans.push_back(stoi(_content[i]));
 	}
-	std::cout << _ans << std::endl;
+	//std::cout << _ans << std::endl;
 }
  
 Character::~Character()

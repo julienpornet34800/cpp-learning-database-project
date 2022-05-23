@@ -12,7 +12,7 @@
 
 #define N_ANSWER 6
 
-class Question
+class Question : public csv::Row
 {
 	friend std::ostream& operator<<(std::ostream& os, Question q);
 
@@ -20,12 +20,11 @@ class Question
 		Question(int id, csv::Row row, std::vector<Character> character_vector);
 		~Question();
 
-		int operator[](int pos);
-
 		void update_answer(std::vector<Character> character_vector);
 		void update_relevance(std::vector<Character> character_vector);
 		void answer_mapping();
 
+		int get_ans(int pos);
 		int get_relevance();
 		std::array<int, N_ANSWER> get_rep_ans();
 
