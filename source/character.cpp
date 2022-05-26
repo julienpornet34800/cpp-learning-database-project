@@ -56,4 +56,9 @@ int Character::get_ans(int pos) const
 	return _ans[pos];
 }
 
+std::string Character::get_name() const
+{
+	return _name;
+}
+
 #endif

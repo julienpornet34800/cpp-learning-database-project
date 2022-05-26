@@ -5,7 +5,6 @@
 
 /*Personnal include*/
 #include "row.hpp"
-#include "csv_parser.hpp"
 
 #ifndef CHARACTER_H
 #define CHARACTER_H
@@ -37,6 +36,7 @@ class Character : public csv::Row
 		bool get_status() const;
 		int get_grade() const;
 		int get_ans(int pos) const;
+		std::string get_name() const;
 
 	private:
 		/*_status = false => character is eliminated.*/

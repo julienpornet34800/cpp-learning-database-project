@@ -36,6 +36,24 @@ std::ostream& operator<<(std::ostream& os, std::array<T, N> a)
 	return os;
 }
 
+bool add_question(csv::Parser* questions_parser, csv::Parser* characters_parser, std::string statement)
+{
+	questions_parser->add_row(statement);
+	characters_parser->add_column("new");
+	return true;
+}
+
+bool add_character(csv::Parser* characters_parser, std::string name)
+{
+	std::string str = name;
+	for (int i = 0; i < static_cast<int>(characters_parser->get_ncolumn())-1; i++)
+		str += ", 0";
+	std::cout << str << std::endl;
+	characters_parser->add_row(str);
+	return true;
+}
+
+
 int main()
 {
 	/*1. Reading of the question and character files---------------------------------------------------------------------------------------*/
@@ -49,53 +67,14 @@ int main()
 	for(size_t i = 0; i<questions_parser.get_nrow(); i++) 
 		questions_vector.push_back(Question(i, questions_parser[i], characters_vector));
 	
-	/*3. Answers aquisitions---------------------------------------------------------------------------------------------------------------*/
-	
-	int current_ans;
-	std::array<int, NQUESTION> user_ans;
+	/*3. Answers aquisitions---------------------------------------------------------------------------------------------------------------*/	
+	add_character(&characters_parser, "JUL");
+	std::cout << characters_parser << std::endl;
+	add_question(&questions_parser, &characters_parser, "Qui est le plus bg ?");
+	std::cout << questions_parser << std::endl;
+	characters_parser.sync();
+	questions_parser.sync();
 
-	for(size_t i = 0; i < NQUESTION; i++)
-	{
-		/*4.1 Update question relevance*/
-		for(int j = 0; j < static_cast<int>(questions_vector.size()); j++) 
-			questions_vector[j].update_relevance(characters_vector);
-
-		/*4.2 Sort the relevance from the answer*/
-		std::sort(questions_vector.begin()+i, questions_vector.end(), 
-			[](Question q1, Question q2)
-			{
-				if (q1.get_relevance() > q2.get_relevance()) return true;
-				else return false;
-			});
-	
-		/*4.3 Display question*/
-		std::cout << questions_vector[i] << "\t(réponse entre 0 et 5)" << std::endl;
-		/*4.4 Answer aquisition*/
-		std::cin >> current_ans;
-		user_ans[questions_vector[i].get_id()] = current_ans;
-		/*4.5 Update of the character status*/
-		for(size_t j = 0; j<characters_vector.size(); j++)
-			characters_vector[j].update_status(current_ans, questions_vector[i].get_ans(j));
-	}
-
-	/*5. Answers analysis*/
-	for(size_t j = 0; j<characters_vector.size(); j++)
-		characters_vector[j].update_grade(user_ans);
-
-	std::sort(characters_vector.begin(), characters_vector.end(), [](Character c1, Character c2)
-	{
-		if(c1.get_grade() > c2.get_grade()) return false;
-		else return true;
-	});
-
-	std::cout << "Vous pensiez à : " << characters_vector[0] << std::endl;
-
-	/* Display character list and grade
-	std::cout << characters_vector << std::endl; 
-
-	for(size_t i = 0; i < characters_vector.size(); i++)
-		std::cout << characters_vector[i].get_grade() << " "; 
-	*/
 	return 0;
 }
 

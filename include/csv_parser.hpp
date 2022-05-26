@@ -8,6 +8,8 @@
 #include <sstream>
 /*Personnal include*/
 #include "row.hpp"
+#include "question.hpp"
+#include "character.hpp"
 
 #ifndef CSV_PARSER_HPP
 #define CSV_PARSER_HPP
@@ -17,6 +19,9 @@ namespace csv
 	class Parser
     {
     	friend std::ostream& operator<<(std::ostream& os, Parser const parser);
+
+    	friend bool add_question(Parser p, Question q);
+    	friend bool add_character(Parser p, Character c);
 
 	    public:
 	    	/*Constructor ans destructor*/
@@ -40,6 +45,11 @@ namespace csv
 	        @return bool equal to true if the row is well deleted
 	        */
         	bool add_row(std::string str);
+        	/*Add a row
+        	@param std::string str string representing the row content
+        	@return bool equal to true if the row is well added
+        	*/
+        	bool add_row(Row row);
         	/*Add a row
         	@param std::string str string representing the row content
         	@return bool equal to true if the row is well added

@@ -109,6 +109,12 @@ namespace csv
 		}
 	}
 
+	bool Parser::add_row(Row row)
+	{
+		_content.push_back(row);
+		return true;
+	}
+
 	bool Parser::add_column(std::string header_name)
 	{
 		_header.push_back(header_name);

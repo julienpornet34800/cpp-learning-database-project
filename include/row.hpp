@@ -30,7 +30,7 @@ namespace csv
 			/*Access member*/
 			int get_length();
 
-			/*Member*/
+			/*Member function*/
 			bool add_column(std::string header_name);
 
 		protected:
