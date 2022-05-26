@@ -15,19 +15,6 @@ namespace csv
 		return os;
 	}
 
-	/*Friend function*/
-	std::vector<int> get_answer(Row row)
-	{
-		std::vector<int> vec;
-		
-		std::transform(row._content.begin() + 1, row._content.end(), std::back_inserter(vec),
-        [&](std::string s) {
-            return stoi(s);
-        });
-
-		return vec;
-	}
-
 	/*Constructor and destructor*/
 	Row::Row(std::vector<std::string> header, std::stringstream ssline, char sep) : _header(header), _sep(sep)
 	{
@@ -72,7 +59,7 @@ namespace csv
 	}
 
 	/*Member function*/
-	int Row::length()
+	int Row::get_length()
 	{
 		return _header.size();
 	}

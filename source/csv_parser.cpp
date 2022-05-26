@@ -26,7 +26,7 @@ namespace csv
 		return os;
 	}
 
-	std::ostream& operator<<(std::ostream& os, Parser parser)
+	std::ostream& operator<<(std::ostream& os, Parser const parser)
 	{
 		os << parser._content;
 		return os;
@@ -67,9 +67,9 @@ namespace csv
 	}
 
 	/*Member operator*/
-	Row Parser::operator[](int pos)
+	Row Parser::operator[](int nline)
 	{
-		return _content[pos];
+		return _content[nline];
 	}
 
 	/*Member function*/
@@ -83,21 +83,21 @@ namespace csv
 		return _header.size();
 	}
 
-	bool Parser::delete_row(unsigned int pos)
+	bool Parser::delete_row(unsigned int nline)
 	{
-		if (pos > _header.size())
+		if (nline > _header.size())
 		{
 			std::perror("Unexisting row.");
 			return false;
 		}
-		_content.erase(_content.begin()+pos);
+		_content.erase(_content.begin()+nline);
 		return true;
 	}
 
 	bool Parser::add_row(std::string str)
 	{
 		Row row(_header, static_cast<std::stringstream>(str), _sep);
-		if (static_cast<long unsigned int>(row.length()) != _header.size())
+		if (static_cast<long unsigned int>(row.get_length()) != _header.size())
 		{
 			std::perror("Format error");
 			return false;
@@ -118,9 +118,9 @@ namespace csv
 		return true;
 	}
 
-	bool Parser::modif_value(std::string new_value, int row, int pos)
+	bool Parser::modif_value(std::string new_value, int nline, int ncol)
 	{
-		_content[row][pos] = new_value;
+		_content[nline][ncol] = new_value;
 		return true;
 	}
 
